@@ -104,7 +104,7 @@ class Manage_line
  	end
 	
 	def create_line
-		formating = [0,0,0,0,0,0,0,0,0]
+		formating = [0,0,0,0,0,0,0,0,0]					#to create 00:00:00,000 formate to be written in .srt file
 		formating1 = [0,0,0,0,0,0,0,0,0]
 		
 		formating[0]=@end_time.hour/10
