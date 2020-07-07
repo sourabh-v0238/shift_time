@@ -1,3 +1,16 @@
+=begin
+	this code is to find average time of arrival ( of flight or trian)
+
+	Input: array of strings. Each sting is a arrival time with time format HH:MM (24 hoour format) or hh:mmPM (12 hour format)
+	e.g. ["12:01am","23:03","11:30PM","00:23","23:48"]
+
+	Output: Average Time in 24 hour format i.e., HH:MM
+	e.g. 23:36
+
+	Note: it is assumed that maximum difference amongst all arrival times is less than 12 hours 
+
+
+=end
 
 require "time"
 
@@ -34,9 +47,20 @@ class Delay
 		show(i_int[0])
 	end
 	def show(number)
+		if number<0
+			number+=24
+		end
 		hour=number.to_i
-		minute=(number-hour)*60
-		puts "%02d:%02d" % [ hour, minute ]
+		minute=((number-hour)*60).round
+		minute = minute.to_i 
+		if minute >= 60
+			hour = hour + minute/60
+			minute=minute%60
+		end
+		if hour>=24
+			hour = hour%24
+		end
+		puts "%02d:%02d" % [ hour, minute ]		# here Time is displayed  in 24 hours format 
 	end
 		def time_to_i
 		t_str.each  do |str| 
@@ -71,7 +95,7 @@ end
 
 str = [ "11:00pm","12:00am","11:30pm"] 
 
-# str = argv        #  if  
+# str = argv        #  if arguments are being paased to the program   
  
 delay = Delay.new(str)
 delay.average_time_of_day
@@ -79,24 +103,4 @@ delay.average_time_of_day
 
 
 
-=begin
-	
-rescue Exception => e
-	
-
-
-opening_time = Time.new
-closing_time = Time.new
-opening_time += 60*60*9
-closing_time += 60*60*15
-p opening_time
-p closing_time
-p (closing_time - opening_time).to_i/3600
-
-t = Time.parse("9:00 PM")
- p t
- p t.hour
- puts Time.at(t).strftime "%H:%M" 
-
-=end
 
